@@ -2,7 +2,7 @@
 
 Moment Multicalibration: finding “regression functions which, given a data point, can make point predictions not just for the expectation of its label, but for higher moments of its label distribution as well—and those predictions match the true distribution quantities when averaged not just over the population as a whole, but also when averaged over an enormous number of finely defined subgroups” (Roth et. al. 2020, https://arxiv.org/abs/2008.08037). 
 
-This repository contains code for both Mean Multicalibration and Moment Multicalibration. 
+This repository contains code for Mean Multicalibration, Moment Multicalibration, and Alternating Gradient Descent. 
 ## Mean Multi calibration
 * Calibration roughly means that the predictor should mean what it says. For example, if we see in a dataset that if it rains 10% of the time, in my predictor, it should have also rained 10% of the time. More formally, let the true label(y) be between 0 and 1. We can divide this range in m buckets so that we have [ 0, 1/m, …,]. A predictor is said to be mean-multicalibrated if for all subgroups that are defined, and for each bucket, if the true mean is close to i, the predicted mean is also close to i.
 
@@ -35,7 +35,18 @@ Here is how all the parts come together for mean multicalibration:
 
 * The 2 key components of the algorithm are the auditor and the fixer (i.e projected gradient descent). The subgroups can be either manually pre-defined or selected by a learning oracle consistency auditor. 
 
-### Alternating Gradient Descent 
+## Alternating Gradient Descent 
 * The goal of alternating gradient descent is to ensure that every predefined subgroup or subgroup selected by a learning oracle consistency auditor is both mean and moment calibrated. After calibration, uncertainty estimates can be generated for each prediction made by the original model.
+
+## Dataset
+* We used the CIFAR10 dataset which is an image dataset comprising 60K training images and 10K test images. There are 10 classes: airplane, automobile, bird, cat,  deer, dog, frog, horse, ship and truck. For our purposes, we split the 60K images into 30K images for training and 20K images for validation and we are predicting whether the object in the image can fly or not. We predefined subgroups as two binary categories: (1) in_water, out_water (2) is_animal, is_not_animal. 
+
+* The use of the CIFAR10 was motivated by the need for very large datasets to avoid overfitting and the main goal was to test the statistical properties of the algorithms.
+
+* We also used a linear dataset with noise x + ε = y, where ε ~ N(0, 1) for a classification task. If y is above or equal to 0.5, the class label is 1 and if the y is below 0.5, the class label is 0.
+
+## Instructions to Reproduce Our Results
+For demonstration of the Moment Multicalibration algorithm, please see our jupyter notebook.
+
 
 
