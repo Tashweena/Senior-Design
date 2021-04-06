@@ -1,6 +1,22 @@
 import numpy as np
 import pandas as pd
+
 def predict(y_pred, x_test, update_list, store_changes=True, sub_indices=None):
+  '''
+  Create predictions adjusted by projected gradient descent throughout the iteration
+  for the purpose of visualization
+
+  Parameters:
+  y_pred: initial y prediction
+  x_test: test data
+  update_list: attribute of predictor_func consisting of list of subgroup_picker and +/- eta 
+  store_changes: boolean, if True will store how the initial y_pred is changed throughout the iters
+  sub_indices: boolean indices of a specific subgroup in the test data to focus on
+
+  Returns:
+  y_pred_fix: final y_pred after PGD defined by update_list
+  initial_subgroup_pred_mean: the subgroup y_pred mean in each iter 
+  '''
   y_pred_fix = y_pred.copy()
   if store_changes and (sub_indices is not None):
     T = len(update_list)
@@ -60,6 +76,7 @@ def predict_variance(y_pred, x_test, calibrated_means, update_list, store_change
   return y_pred_fix, initial_subgroup_pred_mean
 
 def predict_linear_variance(y_pred, x_test, calibrated_means, update_list, store_changes=True, sub_indices=None):
+  
   y_pred_fix = y_pred.copy()
   y_pred_fix = y_pred_fix.reshape(y_pred_fix.shape[0],1)
   if store_changes and (sub_indices is not None):

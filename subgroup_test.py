@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 ## returns all the subgroups
 def iter_subgroups(categories_dict, num_buckets):
+  '''returns all possible subgroup combinations'''
   all_subgroups = []
   for key in categories_dict:
     subgroup = []
@@ -260,6 +261,14 @@ def all_subgroup_func_factory_health(subgroups, num_buckets, bucket):
   return subgroup_picker
   
 def all_subgroup_func_factory_cifar(subgroups, num_buckets, bucket):
+  '''
+  Return a subgroup_picker function that return a list of boolean to indicate whether
+  each row in the df belong to a specified subgroup.
+
+  subgroups: the chosen subgroup
+  num_buckets: divide the y_pred value (between [0,1]) into num_buckets of intervals
+  bucket: only look at y_pred in that interval
+  '''
   classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
   labels = label_subgroup_converter(subgroups)
@@ -268,19 +277,25 @@ def all_subgroup_func_factory_cifar(subgroups, num_buckets, bucket):
   upper = lower + size
   
   def subgroup_picker(reference, y_pred):
-      indices = np.array([True]*len(reference))
-      for label in labels:
-        sub_indices = np.array([False]*len(reference))
-        for ele in label:
-          index = reference == ele
-          sub_indices = sub_indices | index
-        indices = indices & sub_indices
-      ## decide indices for the bucket
-      ## make sure y_pred is a pd.Series
-      buck_index = np.array(y_pred.apply(lambda y : True if (y > lower and y<=upper) else False))
-      # print(sum(index))
-      indices = indices & buck_index
-      return indices
+    '''
+    Return a boolean list same length as y_pred. True if the data (i.e. X_i) corresponding to y_pred_i 
+    belongs to the specified subgroup and bucket interval
+
+    reference: the X values that include indicator columns of each X_i's subgroup membership
+    '''
+    indices = np.array([True]*len(reference))
+    for label in labels:
+      sub_indices = np.array([False]*len(reference))
+      for ele in label:
+        index = reference == ele
+        sub_indices = sub_indices | index
+      indices = indices & sub_indices
+    ## decide indices for the bucket
+    ## make sure y_pred is a pd.Series
+    buck_index = np.array(y_pred.apply(lambda y : True if (y > lower and y<=upper) else False))
+    # print(sum(index))
+    indices = indices & buck_index
+    return indices
   def everything_picker(x_test,y_pred):
       indices = np.array([True]*len(x_test))
       return indices
