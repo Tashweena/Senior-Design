@@ -26,6 +26,7 @@ For post-processing, in each iteration the auditor will first indicate if the pr
 * For prediction, we use a new set of test data. First, we generate the initial prediction from the given machine learning model. We then use projected gradient descent from the same sequence of actions saved from post-processing to adjust the initial predictions of subgroups.
 
 Here is how all the parts come together for mean multicalibration:
+<img width="800" alt="Screen Shot 2021-04-05 at 9 22 07 PM" src="https://user-images.githubusercontent.com/66379483/113645593-fc982b80-963b-11eb-85fd-016e40deca79.png">
 
 
 ## Moment Multi calibration 
@@ -34,9 +35,15 @@ Here is how all the parts come together for mean multicalibration:
 * So far, only the second moment has been implemented, but the algorithm can calibrate higher moments as well. 
 
 * The 2 key components of the algorithm are the auditor and the fixer (i.e projected gradient descent). The subgroups can be either manually pre-defined or selected by a learning oracle consistency auditor. 
+ 
+Here is how all the parts come together for moment multicalibration:
+<img width="800" alt="Screen Shot 2021-04-05 at 9 24 10 PM" src="https://user-images.githubusercontent.com/66379483/113645683-35380500-963c-11eb-92c8-5f3ffbf0910e.png">
 
 ## Alternating Gradient Descent 
 * The goal of alternating gradient descent is to ensure that every predefined subgroup or subgroup selected by a learning oracle consistency auditor is both mean and moment calibrated. After calibration, uncertainty estimates can be generated for each prediction made by the original model.
+
+Here is how all the parts come together for alternating gradient descent: 
+<img width="800" alt="Screen Shot 2021-04-05 at 9 25 24 PM" src="https://user-images.githubusercontent.com/66379483/113645777-61538600-963c-11eb-971c-0229aaf5d2bb.png">
 
 ## Dataset
 * We used the CIFAR10 dataset which is an image dataset comprising 60K training images and 10K test images. There are 10 classes: airplane, automobile, bird, cat,  deer, dog, frog, horse, ship and truck. For our purposes, we split the 60K images into 30K images for training and 20K images for validation and we are predicting whether the object in the image can fly or not. We predefined subgroups as two binary categories: (1) in_water, out_water (2) is_animal, is_not_animal. 
