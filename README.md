@@ -1,8 +1,9 @@
 # Senior-Design
 
+This repository contains code for Mean Multicalibration, Moment Multicalibration, and Alternating Gradient Descent. 
+
 Moment Multicalibration: finding “regression functions which, given a data point, can make point predictions not just for the expectation of its label, but for higher moments of its label distribution as well—and those predictions match the true distribution quantities when averaged not just over the population as a whole, but also when averaged over an enormous number of finely defined subgroups” (Roth et. al. 2020, https://arxiv.org/abs/2008.08037). 
 
-This repository contains code for Mean Multicalibration, Moment Multicalibration, and Alternating Gradient Descent. 
 ## Mean Multi calibration
 * Calibration roughly means that the predictor should mean what it says. For example, if we see in a dataset that if it rains 10% of the time, in my predictor, it should have also rained 10% of the time. More formally, let the true label(y) be between 0 and 1. We can divide this range in m buckets so that we have [ 0, 1/m, …,]. A predictor is said to be mean-multicalibrated if for all subgroups that are defined, and for each bucket, if the true mean is close to i, the predicted mean is also close to i.
 
