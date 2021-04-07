@@ -2,7 +2,14 @@ import pandas as pd
 import numpy as np
 import pdb
 class Predictor:
+  '''
+  Predictor object used for projected gradient descent
+  '''
   def __init__(self, initial_predictor,x_train,y_train):
+    '''
+    initial_predictor: the original ML model to audit
+    x_train, y_train: the training data used to train the initial_predictor
+    '''
     self.initial_predictor = initial_predictor
     if initial_predictor != None:
       self.initial_predictor.fit(x_train,y_train)
@@ -11,6 +18,13 @@ class Predictor:
     self.lbda_group_list = []
 
   def predict_y(self, x_test, x_test_sub, dummy):
+    '''
+    Use initial_predictor to obtain initial prediction, then adjust it by projected gradient descent
+    
+    dummy: if True, output self.val = 0.5 as initial prediction
+    x_test: data used for prediction
+    x_test_sub: data with columns that indicate with subgroup it belongs to (specific to CIFAR10)
+    '''
     if dummy:
       # print("The dummy one")
       y_pred = [self.val] * len(x_test)
