@@ -47,7 +47,7 @@ Here is how all the parts come together for alternating gradient descent:
 <img width="800" alt="Screen Shot 2021-04-05 at 9 25 24 PM" src="https://user-images.githubusercontent.com/66379483/113645777-61538600-963c-11eb-971c-0229aaf5d2bb.png">
 
 ## Dataset
-* We used the CIFAR10 dataset which is an image dataset comprising 60K training images and 10K test images. There are 10 classes: airplane, automobile, bird, cat,  deer, dog, frog, horse, ship and truck. For our purposes, we split the 60K images into 30K images for training and 20K images for validation and we are predicting whether the object in the image can fly or not. We predefined subgroups as two binary categories: (1) in_water, out_water (2) is_animal, is_not_animal. 
+* We used the CIFAR10 dataset which is an image dataset comprising 50K training images and 10K test images. There are 10 classes: airplane, automobile, bird, cat,  deer, dog, frog, horse, ship and truck. For our purposes, we split the 60K images into 30K images for training and 20K images for validation and we are predicting whether the object in the image can fly or not. We predefined subgroups as two binary categories: (1) in_water, out_water (2) is_animal, is_not_animal. 
 
 * The use of the CIFAR10 was motivated by the need for very large datasets to avoid overfitting and the main goal was to test the statistical properties of the algorithms.
 
