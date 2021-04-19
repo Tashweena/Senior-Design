@@ -1,4 +1,4 @@
-# Senior-Design
+# Equalmodel
 
 This repository contains code for Mean Multicalibration, Moment Multicalibration, and Alternating Gradient Descent. 
 
